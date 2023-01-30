@@ -21,7 +21,13 @@
         </div>
         <div forLab>
             <label for="func">Введите функцию считывания</label>
-            <input type="text" id="func"  >
+            <select id="func">
+                <option value="ReadCoils">ReadCoils</option>
+                <option value="ReadDiscreteInputs">ReadDiscreteInputs</option>
+                <option value="ReadHoldingRegisters">ReadHoldingRegisters</option>
+                <option value="ReadInputRegisters">ReadInputRegisters</option>
+            </select>
+
         </div>
         <div forLab>
             <label for="adr">Введите адрес регистра</label>
@@ -39,7 +45,7 @@
 
 
     </form>
-    <title>Chat Example</title>
+    <title>Modbus Apeyron</title>
     <script type="text/javascript">
         window.onload = function () {
             var conn;
@@ -81,14 +87,20 @@
                     appendLog(item);
                 };
                 conn.onmessage = function (evt) {
-                    var messages = evt.data.split('\n');
+                   // console.log(evt.data)
+                  //  var messages = evt.data.split('-');
+                    log.innerText=evt.data;
+                    /*
                     for (var i = 0; i < messages.length; i++) {
                         var item = document.createElement("div");
-                        item.innerText = messages[i];
+                         item.innerText = messages[i];
                         log.innerText=messages[i];
-                        console.log(item)
+                    //    log.Child
+                      //  console.log(messages[i])
                         //appendLog(item);
                     }
+
+                     */
                 };
             } else {
                 var item = document.createElement("div");

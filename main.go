@@ -52,7 +52,7 @@ type Client struct {
 // ensures that there is at most one reader on a connection by executing all
 // reads from this goroutine.
 
-func (c *Client) readPump(modbusChan chan uint16) {
+func (c *Client) readPump(modbusChan chan []modbus.MessangeModbus) {
 	defer func() {
 		c.hub.unregister <- c
 		c.conn.Close()
@@ -79,6 +79,8 @@ func (c *Client) readPump(modbusChan chan uint16) {
 		if !modbusConnect.Active {
 			modbusConnect.Active = true
 			go modbusConnect.Connect(cancelChan, modbusChan)
+		} else {
+			cancelChan <- true
 		}
 		//	message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
 		//c.hub.broadcast <- message
@@ -90,7 +92,7 @@ func (c *Client) readPump(modbusChan chan uint16) {
 // A goroutine running writePump is started for each connection. The
 // application ensures that there is at most one writer to a connection by
 // executing all writes from this goroutine.
-func (c *Client) writePump(modbusChan chan uint16) {
+func (c *Client) writePump(modbusChan chan []modbus.MessangeModbus) {
 	ticker := time.NewTicker(pingPeriod)
 	defer func() {
 		ticker.Stop()
@@ -110,8 +112,15 @@ func (c *Client) writePump(modbusChan chan uint16) {
 			if err != nil {
 				return
 			}
-			test := fmt.Sprintf("adress 15 : %v", message)
-			w.Write([]byte(test))
+			/*msgTxt := ""
+			for i := 0; i < len(message); i++ {
+				txt := fmt.Sprintf("Регистор №:%v  Значение: %v")
+			}*/
+
+			for _, msg := range message {
+				msgTx := fmt.Sprintf("№:%v: %v \n", msg.Id, msg.Value)
+				w.Write([]byte(msgTx))
+			}
 
 			// Add queued chat messages to the current websocket message.
 			n := len(c.send)
@@ -155,7 +164,7 @@ func (c *Client) writePump(modbusChan chan uint16) {
 }
 
 // serveWs handles websocket requests from the peer.
-func serveWs(hub *Hub, modbusChan chan uint16, w http.ResponseWriter, r *http.Request) {
+func serveWs(hub *Hub, modbusChan chan []modbus.MessangeModbus, w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
@@ -237,7 +246,7 @@ func main() {
 	flag.Parse()
 	hub := newHub()
 	go hub.run()
-	modbusChan := make(chan uint16)
+	modbusChan := make(chan []modbus.MessangeModbus)
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(hub, modbusChan, w, r)
