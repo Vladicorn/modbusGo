@@ -14,19 +14,29 @@ require (
 	gioui.org/shader v1.0.6 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/benoitkugler/textlayout v0.3.0 // indirect
+	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-text/typesetting v0.0.0-20221214153724-0399769901d5 // indirect
 	github.com/goburrow/serial v0.1.0 // indirect
 	github.com/gofiber/fiber/v2 v2.41.0 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gopcua/opcua v0.3.11 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/jedib0t/go-pretty/v6 v6.4.4 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
+	github.com/konimarti/opc v0.3.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
+	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/maxence-charriere/go-app/v9 v9.6.7 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/prometheus/client_golang v1.4.0 // indirect
+	github.com/prometheus/client_model v0.2.0 // indirect
+	github.com/prometheus/common v0.9.1 // indirect
+	github.com/prometheus/procfs v0.0.8 // indirect
 	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.44.0 // indirect
@@ -35,4 +45,5 @@ require (
 	golang.org/x/image v0.0.0-20220722155232-062f8c9fd539 // indirect
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.3.7 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 )
